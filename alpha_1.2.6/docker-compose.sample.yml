@@ -1,0 +1,17 @@
+version: "3.3"
+
+services:
+  minecraft:
+    image: "openjdk:8-jre-alpine"
+    container_name: "minecraft_alpha_1.2.6"
+    environment:
+      MEMORYSIZE: "1024M"
+    volumes:
+      - "./data:/data:rw"
+      - "./minecraft_server.a1.2.6.jar:/data/minecraft_server.jar"
+    ports:
+      - "25565:25565"
+    # The following allow `docker attach minecraft` to work
+#    stdin_open: true
+#    tty: true
+    command: sh -cx "cd /data && /usr/bin/java -Xmx1024M -Xms1024M -jar minecraft_server.jar nogui"
